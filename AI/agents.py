@@ -1,28 +1,36 @@
-import google.generativeai as palm
-from crewai.agent import Agent
+import google.generativeai as genai
+from crewai import Agent
 import os
 
 class ProjectReviewAgent(Agent):
     def __init__(self):
         # Initialize Google Generative AI
-        palm.configure(api_key=os.getenv("GOOGLE_GENAI_API_KEY"))
+        genai.configure(api_key=os.getenv("GOOGLE_GENAI_API_KEY"))
 
+    def gemini_pro_response(self, query):
+        """
+        Mocked response for demonstration. Replace this with the actual call to Google Generative AI if needed.
+        """
+        gemini_pro_model = genai.GenerativeModel("gemini-pro")
+        response = gemini_pro_model.generate_content(query)
+        return response
+    
     # Duplication Check Feature
     def duplication_check(self, description, project_owner_email):
         """
         Use Google Generative AI to find similar projects and determine duplication.
         """
         query = f"Search for existing projects similar to this one: '{description}'. Return the match percentage and details."
-        response = palm.chat(model="models/chat-bison-001", messages=[{"content": query}])
+        response = self.gemini_pro_response(query)
 
         # Simulate parsed output for demonstration purposes
-        matches = response.last if response else []
+        matches = response.text if response else []
         for project in matches:
-            if project.get("match_percentage", 0) > 50:
+            if project.find("match_percentage", 0) > 50:
                 self.notify_project_owner(project_owner_email, project["url"])
                 return {
                     "status": "flagged",
-                    "message": "Project matches an existing one with >50% similarity. Notified owner to contribute.",
+                    "message": "Project matches an existing one with >50% , similarity. Notified owner to contribute.",
                     "match_details": project,
                 }
 
@@ -52,10 +60,10 @@ class ProjectReviewAgent(Agent):
             "Nonprofit", "Scientific Research"
         ]
         query = f"Categorize this project description into one of these categories: {candidate_labels}. Description: {description}"
-        response = palm.chat(model="models/chat-bison-001", messages=[{"content": query}])
+        response = self.gemini_pro_response(query)
 
         # Return the top predicted category
-        return response.last.get("category", "Uncategorized") if response else "Uncategorized"
+        return response.text.find("category", "Uncategorized") if response else "Uncategorized"
 
     # Project Evaluation Feature
     def evaluate_project(self, repo_url):
@@ -64,10 +72,10 @@ class ProjectReviewAgent(Agent):
         """
         query = f"Evaluate the project at {repo_url} based on the following criteria: " \
                 f"README quality, creativity, innovation, functionality, and integration. Provide scores (1-10) for each."
-        response = palm.chat(model="models/chat-bison-001", messages=[{"content": query}])
+        response = self.gemini_pro_response(query)
 
         # Simulate evaluation output
-        evaluation = response.last if response else {}
+        evaluation = response.text if response else {}
         evaluation_results = {
             "readme": evaluation.get("readme_score", "N/A"),
             "creativity": evaluation.get("creativity_score", "N/A"),
