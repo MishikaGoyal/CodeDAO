@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Navbar() {
   return (
@@ -35,6 +38,14 @@ export default function Navbar() {
               className="text-blue-300 hover:text-blue-100 transition-colors"
             >
               Accepted Proposals
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/donor"
+              className="text-white hover:text-white transition-colors"
+            >
+              🔧 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
             </Link>
           </li>
         </ul>

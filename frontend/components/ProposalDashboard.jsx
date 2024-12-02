@@ -110,7 +110,7 @@ export function ProposalDashboard({
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="text-4xl font-bold text-center">{votesForPercentage.toFixed(2)}% Approval</div>
+              <div className="text-4xl font-bold text-center text-white">{votesForPercentage.toFixed(2)}% Approval</div>
               <Progress value={votesForPercentage} className="w-full h-4" />
               <div className="flex justify-between text-sm">
                 <span className="text-green-400">For: {proposal.votesFor}</span>
@@ -128,7 +128,7 @@ export function ProposalDashboard({
             <div className="space-y-2">
               <div className="flex items-center">
                 <User className="mr-2 text-purple-300" />
-                <span className="font-mono text-lg">{proposal.proposer.address}</span>
+                <span className="font-mono text-lg text-white">{proposal.proposer.address}</span>
               </div>
               <div className="flex items-center">
                 <Github className="mr-2 text-purple-300" />
