@@ -1,9 +1,10 @@
 import Head from "next/head";
-import PulsatingNodes from "./Components/Hero";
-import About from "./Components/About";
-import StepsComponent from "./Components/Steps";
-import { AnimatedTestimonialsDemo } from "./Components/Showcase";
-import Footer from "./Components/Footer";
+import PulsatingNodes from "@/components/Hero";
+import About from "@/components/About";
+import StepsComponent from "@/components/Steps";
+import { AnimatedTestimonialsDemo } from "@/components/Showcase";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
@@ -16,12 +17,13 @@ export default function Home() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
+      <Navbar />
       <PulsatingNodes />
       <About />
       <StepsComponent />
       <AnimatedTestimonialsDemo />
       <Footer />
-      {/* <ProjectProposalForm /> */}
     </>
   );
 }
+
