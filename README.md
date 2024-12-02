@@ -1,8 +1,12 @@
 # CodeDAO: Decentralized Open Source Revolution 🚀  
 
 ### **Implementations**
-1. **Base-Sepolia Testnet Contract** Address - [0x1edecc0047bcabc6837694770c1ad2281c18d6f7](https://sepolia.basescan.org/address/0x1edecc0047bcabc6837694770c1ad2281c18d6f7)
-2. 
+1. **Base Contract Deployment** Address - [0x1edecc0047bcabc6837694770c1ad2281c18d6f7](https://sepolia.basescan.org/address/0x1edecc0047bcabc6837694770c1ad2281c18d6f7)
+2. **Sui Contract Deployment** Address - []
+
+### **Social**
+1. **Journey of Team Pahadi @Unfold** - [https://twitter.com/agarwalvivek29/status/1863448059146838126](https://twitter.com/agarwalvivek29/status/1863448059146838126)
+2. **Building using Okto** - [Blog - Revolutionizing Decentralized Innovation with Okto: The Backbone of CodeDAO](https://medium.com/@mishikaaagarwal/revolutionizing-decentralized-innovation-with-okto-the-backbone-of-codedao-aa5d7872ba75)
 
 ### **Overview**  
 Welcome to **CodeDAO**, a groundbreaking decentralized platform designed to foster open-source development like never before. CodeDAO empowers developers, funders, and communities by combining AI, DAO governance, and automated milestone-based funding.  
