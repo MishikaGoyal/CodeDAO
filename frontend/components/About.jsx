@@ -23,8 +23,8 @@ function About() {
           enhancements to existing open-source tools. Our unique integration
           with GitHub ensures milestone-based crypto payments for every commit
           or pull request, rewarding real progress and accountability. At
-          CodeCatalyst, we’re not just supporting open source—we’re transforming
-          how it evolves. Join us to innovate, fund, and shape the technology of
+          CodeDAO, we’re not just supporting open source—we’re transforming how
+          it evolves. Join us to innovate, fund, and shape the technology of
           tomorrow.
         </div>
       </div>
