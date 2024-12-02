@@ -31,39 +31,43 @@ const steps = [
 ];
 
 const StepsComponent = () => {
-  const [visible, setVisible] = useState(false);
   const stepRefs = useRef([]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("animate-visible");
+          entry.target.classList.add("opacity-100");
         } else {
-          entry.target.classList.remove("animate-visible");
+          entry.target.classList.remove("opacity-100");
         }
       });
     });
 
     stepRefs.current.forEach((step) => observer.observe(step));
 
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="flex bg-black  " id="steps">
-      <div className=" text-white py-16 px-8 md:px-12 lg:px-16 max-w-full mt-32 - ">
-        <h2 className=" abeezee-regular text-4xl md:text-5xl font-bold text-center mb-12 -ml-44">
+    <div className="flex bg-black text-white" id="steps">
+      <div className="text-white py-16 px-8 md:px-12 lg:px-16 max-w-full mt-32">
+        <h2 className="abeezee-regular text-4xl md:text-5xl font-bold text-center mb-12">
           How It Works
         </h2>
-        <div className=" ubuntu-bold-italic  flex flex-col gap-12">
+        <div className="ubuntu-bold-italic flex flex-col gap-12">
           {steps.map((step, index) => (
-            <div
+            <motion.div
               key={index}
               ref={(el) => (stepRefs.current[index] = el)}
               className="flex items-center gap-6 md:gap-12 opacity-0 transition-opacity duration-700"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 0.6,
+                delay: index * 0.3,
+                ease: "easeOut",
+              }}
             >
               {/* Step Number */}
               <motion.div
@@ -80,11 +84,11 @@ const StepsComponent = () => {
               </motion.div>
 
               {/* Step Details */}
-              <div className="transition-all duration-700 opacity-0 animate-visible">
+              <div className="transition-all duration-700 opacity-100">
                 <h3 className="text-2xl font-semibold">{step.title}</h3>
                 <p className="text-gray-300 mt-2">{step.description}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -95,7 +99,7 @@ const StepsComponent = () => {
           height={400}
           alt="steps"
           className="rounded-2xl mt-12"
-        ></Image>
+        />
       </div>
     </div>
   );

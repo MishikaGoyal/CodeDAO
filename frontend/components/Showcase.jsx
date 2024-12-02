@@ -1,23 +1,20 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
-
+import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 // Dynamically import the AnimatedTestimonials component with SSR disabled
 const AnimatedTestimonials = dynamic(
   () =>
-    import("@/components/ui/animated-testimonials").then((mod) => mod.default), // Access the default export
+    import("@/components/ui/animated-testimonials").then((mod) => mod.default),
   {
-    ssr: false, // Disable SSR for this component
+    ssr: false,
   }
 );
 
 export function AnimatedTestimonialsDemo() {
   const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    // Mark the component as client-side rendered
-    setIsClient(true);
-  }, []);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const intervalTime = 5000; // Auto-rotate every 5 seconds
 
   const testimonials = [
     {
@@ -57,10 +54,50 @@ export function AnimatedTestimonialsDemo() {
     },
   ];
 
-  // Prevent rendering until client-side
+  useEffect(() => {
+    setIsClient(true);
+
+    const timer = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+    }, intervalTime);
+
+    return () => clearInterval(timer); // Clear the timer when the component unmounts
+  }, [testimonials.length]);
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length
+    );
+  };
+
   if (!isClient) {
-    return <div>Loading...</div>; // Optionally, display a loading spinner/message
+    return <div>Loading...</div>;
   }
 
-  return <AnimatedTestimonials testimonials={testimonials} />;
+  return (
+    <div className="relative">
+      {/* Pass the current testimonial */}
+      <AnimatedTestimonials testimonials={[testimonials[currentIndex]]} />
+
+      {/* Buttons */}
+      <div className="absolute inset-x-0 bottom-4 flex justify-center gap-4">
+        <button
+          className="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-700"
+          onClick={handlePrev}
+        >
+          <IconArrowLeft className="h-5 w-5 text-black dark:text-neutral-400 group-hover/button:rotate-12 transition-transform duration-300" />
+        </button>
+        <button
+          className="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-700"
+          onClick={handleNext}
+        >
+          <IconArrowRight className="h-5 w-5 text-black dark:text-neutral-400 group-hover/button:-rotate-12 transition-transform duration-300" />
+        </button>
+      </div>
+    </div>
+  );
 }
